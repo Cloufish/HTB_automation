@@ -25,6 +25,7 @@ dir_commands=${dir}command_stack.txt
 
 #NMAP
 nmap_command="nmap -T4 -A -p- -Pn -oG nmap-grepable.txt $domain"
+echo $nmap_command >> $dir_commands
 
 touch ${dir}nmap.txt
 eval "runcom ${nmap_command}" | tee ${dir}nmap.txt
@@ -45,6 +46,7 @@ then
 
         webanalyze_command="webanalyze -host $domain -crawl 1"
         webanalyze -update > /dev/null
+        echo $webanalyze_command >> $dir_commands
 
         touch ${dir}webanalyze.txt
         eval "runcom ${webanalyze_command}" | tee ${dir}webanalyze.txt
@@ -52,9 +54,10 @@ then
         # Searchsploit with webanalyze findings
         searchsploit_command="searchsploit"
         while read in; do echo $in | eval "runcom $searchsploit_command" | tee ${dir}searchsploit.txt; done < ${dir}webanalyze.txt >${dir}searchsploit.txt
-
+        echo $searchsploit_command >> $dir_commands
+        
         curl_command=" curl -L -k $domain"
-
+        echo $curl_command >> $dir_commands
         touch ${dir}curl.txt
         eval "runcom ${curl_command}" | tee ${dir}curl.txt
 

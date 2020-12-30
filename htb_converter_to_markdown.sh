@@ -2,7 +2,7 @@
 
 
 machine_name=${PWD##*/}
-markdown_report=$machine_name.md
+markdown_report=${machine_name}.md
 touch $markdown_report
 echo '' > $markdown_report
 dir_output=$PWD/command_output
