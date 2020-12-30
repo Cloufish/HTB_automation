@@ -68,4 +68,4 @@ fi
 
 
 
-converter_to_markdown.sh
+htb_converter_to_markdown.sh
